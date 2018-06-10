@@ -17,13 +17,13 @@ import (
 const secret="itfanr.cc"
 
 
-func sha1Str(data string) string {
-	h:=sha1.New()
-	h.Write([]byte(data))
-	my_sign:=h.Sum(nil)
-	// 使用`%x`来将散列结果格式化为16进制的字符串
-	return fmt.Sprintf("%x",my_sign)
-}
+// func sha1Str(data string) string {
+// 	h:=sha1.New()
+// 	h.Write([]byte(data))
+// 	my_sign:=h.Sum(nil)
+// 	// 使用`%x`来将散列结果格式化为16进制的字符串
+// 	return fmt.Sprintf("%x",my_sign)
+// }
 
 func hmacsha1Str(key string,data string) string {
 	h_key:=[]byte(key)
@@ -79,7 +79,7 @@ func main() {
 			// 只对 Event =push 进行操作
 			if x_Event == "push" {
 				fmt.Println("**********")
-				fmt.Println(req_str)
+				// fmt.Println(req_str)
 
 				// 从 body中获取参数
 				cmt_ref:=gjson.Get(req_str,"ref")// 分支
@@ -99,10 +99,15 @@ func main() {
 				fmt.Println(cmt_modified_list.Array())
 
 				// 检查是否为特定分支
-
+				// if cmt_ref =="refs/heads/master"{}
 
 				// 执行clone部署操作
-				exec.Command("sh","/app/build.sh")
+				out,err:=exec.Command("sh","/app/build.sh").Output()
+				if err!=nil{
+					fmt.Println(err)
+				}
+				result:=string(out)
+				fmt.Println(result)
 
 				c.JSON(http.StatusOK, "Success")
 			}else{
