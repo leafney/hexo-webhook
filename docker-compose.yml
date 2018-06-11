@@ -1,0 +1,14 @@
+version: '3'
+services:
+  bloghook:
+    build: .
+    image: hexo-webhook:gohook-1.0
+    container_name: bloghook
+    restart: always
+    ports:
+      - "8665:80" # hexo blog
+      - "8666:8080" # gin webhook
+    environment:
+      - CLONE_URL=https://github.com/Leafney/Leafney.github.io.git
+      # - USER_NAME=
+      # - USER_TOKEN=
