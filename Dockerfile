@@ -2,9 +2,9 @@ FROM alpine:3.7
 MAINTAINER leafney "babycoolzx@126.com"
 
 RUN apk add --no-cache git pcre nginx supervisor && \
-    mkdir -p /app/ && \
+    mkdir -p /app/logs/ && \
     mkdir -p /run/nginx/ && \
-    mkdir -p /etc/supervisor.d && \
+    mkdir -p /etc/supervisor.d/ && \
     rm -rf /var/cache/apk/*
 
 COPY ./supervisor_bloghook.ini /etc/supervisor.d/supervisor_bloghook.ini
