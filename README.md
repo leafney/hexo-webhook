@@ -1,4 +1,6 @@
-### golang gin webhook server for hexo blog
+### gin for hexo blog through webhook automatic deployment
+
+[README中文](/README_ZH.md)
 
 #### Docker Env
 
@@ -15,13 +17,7 @@ $ docker run -it --name bloghook --restart=always -d -p 127.0.0.1:8666:8080 -p 1
 * `8080` github webhook
 * `80` hexo blog
 
-##### build ONCE after Docker run
-
-```
-$ docker exec bloghook /bin/sh /app/build.sh
-```
-
-#### Run by Docker-compose
+#### Run by Docker-Compose
 
 ##### install docker-compose
 
@@ -48,9 +44,21 @@ docker-compose-hexo.yml
 $ docker-compose -f ./docker-compose-hexo.yml up -d
 ```
 
+#### build ONCE after Docker run
+
+After the container starts, visit the browser to display 404 pages. You need to get online blog files first to the container.
+
+```
+$ docker exec bloghook /bin/sh /app/build.sh
+```
+
+And then,it works!
+
 ***
 
 #### go build
+
+If you want to change the default secret of `itfanr.cc` ,you need to compile the golang program by yourself.
 
 Compile the golang program for linux :
 
@@ -60,15 +68,25 @@ $ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 
 ****
 
-#### gohook-1.0
+##### view logs
 
-The default webhook secret is `itfanr.cc`. If you want to change, please compile the golang program by yourself.
+The main log files directory is `/app/logs/` in container. You can see it by the following commands:
+
+```
+$ docker exec -it bloghook /bin/sh
+$ cd /app/logs
+$ vi ginweb_stdout.log
+```
 
 ***
 
+#### gohook-1.0
+
+The default webhook secret is `itfanr.cc`. If you want to change, please compile the golang program `main.go` by yourself.
+
 #### gohook-2.0
 
-Wellcome Index.html for settings:
+Wellcome Page for Settings:
 
 1. webhook secret
 2. webhook say hello words
