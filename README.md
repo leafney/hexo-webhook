@@ -95,3 +95,4 @@ Wellcome Page for Settings:
 5. git clone usertoken
 6. send email notify
 7. show log detail page
+8. Select operation branch
