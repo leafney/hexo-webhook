@@ -93,7 +93,7 @@ func main() {
 				fmt.Println(cmt_ref.String())
 				fmt.Println(cmt_id.String())
 				fmt.Println(cmt_message.String())
-				fmt.Println(cmt_timestamp.Time())
+				fmt.Println(cmt_timestamp.Time()) //时间获取失败，待修改
 				fmt.Println(cmt_added_list.Array())
 				fmt.Println(cmt_removed_list.Array())
 				fmt.Println(cmt_modified_list.Array())
